@@ -126,7 +126,6 @@ while place_order:
                 menu_selection = int(menu_selection)
 
                 # 4. Check if the menu selection is in the menu items
-              
                 #if int(menu_category) in menu_items.keys():
                 if menu_selection in menu_items.keys():
 
@@ -134,7 +133,7 @@ while place_order:
                     item_name = menu_items[int(menu_selection)]["Item name"]
 
                     # Ask the customer for the quantity of the menu item
-                    quantity = input(f"How many {item_name}s would you like?")
+                    quantity = input(f"How many {item_name}s would you like?(Quantity will default to 1 if input is invalid)")
 
                     # Check if the quantity is a number, default to 1 if not
                     if quantity.isdigit():
@@ -166,13 +165,12 @@ while place_order:
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
 
         # 5. Check the customer's input
-        if keep_ordering == 'y' or keep_ordering == 'Y':
-                # Keep ordering
+        match keep_ordering.lower():
+            # Keep ordering
+            case 'y':
                 # Exit the keep ordering question loop
                 break
-
-                # Complete the order
-        elif keep_ordering == 'n' or keep_ordering == 'N':
+            case 'n':
                 # Since the customer decided to stop ordering, thank them for
                 # their order
                 print("Thank you for your order")
@@ -180,10 +178,9 @@ while place_order:
                 # Exit the keep ordering question loop
                 place_order = False
                 break
-        else:
+            case _:
                 # Tell the customer to try again
                 print("Invalid response please try again.")
-
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
@@ -199,6 +196,7 @@ print("--------------------------|--------|----------")
 for item in order_list:
 
     # 7. Store the dictionary items as variables
+    # I did this in the for loop
 
     # 8. Calculate the number of spaces for formatted printing
     name_spaces = 26 - len(item["Item name"])
@@ -222,4 +220,4 @@ for item in order_list:
 # and print the prices.
 item_prices = [item["Price"] * item["Quantity"] for item in order_list]
 total_price = sum(item_prices)
-print(f"Your order total is{total_price: ,.2f}.")
+print(f"\nYour order total is{total_price: ,.2f}.")
